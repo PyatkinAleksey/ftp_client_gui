@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>782</width>
+    <height>663</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -19,13 +19,50 @@
   <property name="windowTitle">
    <string>FTP-client</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QComboBox" name="globalEntities">
+      <property name="minimumSize">
+       <size>
+        <width>764</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QSplitter" name="verticalSplitter">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QSplitter" name="horizontalSplitter">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QTreeView" name="localFiles"/>
+       <widget class="QTreeView" name="remoteFiles"/>
+      </widget>
+      <widget class="QTextBrowser" name="logs"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="mainMenu">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>782</width>
      <height>21</height>
     </rect>
    </property>
@@ -88,7 +125,7 @@
   <action name="actionConnect">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/connect/images/connect.ico</normaloff>:/connect/images/connect.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/connect.ico</normaloff>:/Menu&amp;Toolbar/images/connect.ico</iconset>
    </property>
    <property name="text">
     <string>Connect</string>
@@ -97,7 +134,7 @@
   <action name="actionExit">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/exit/images/exit.ico</normaloff>:/exit/images/exit.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/exit.ico</normaloff>:/Menu&amp;Toolbar/images/exit.ico</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -106,7 +143,7 @@
   <action name="actionConnectionSettings">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/settings/images/settings.ico</normaloff>:/settings/images/settings.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/settings.ico</normaloff>:/Menu&amp;Toolbar/images/settings.ico</iconset>
    </property>
    <property name="text">
     <string>Connection settings</string>
@@ -115,7 +152,7 @@
   <action name="actionManual">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/manual/images/manual.ico</normaloff>:/manual/images/manual.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/manual.ico</normaloff>:/Menu&amp;Toolbar/images/manual.ico</iconset>
    </property>
    <property name="text">
     <string>Manual</string>
@@ -124,7 +161,7 @@
   <action name="actionAboutProgram">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/about_program/images/about_program.ico</normaloff>:/about_program/images/about_program.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/about_program.ico</normaloff>:/Menu&amp;Toolbar/images/about_program.ico</iconset>
    </property>
    <property name="text">
     <string>About program</string>
@@ -133,13 +170,13 @@
   <action name="actionCopy">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/copy/images/copy.ico</normaloff>:/copy/images/copy.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/copy.ico</normaloff>:/Menu&amp;Toolbar/images/copy.ico</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
    </property>
    <property name="toolTip">
-    <string>Copy files</string>
+    <string>Copy files (F5)</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
@@ -148,13 +185,13 @@
   <action name="actionRename">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/rename/images/rename.ico</normaloff>:/rename/images/rename.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/rename.ico</normaloff>:/Menu&amp;Toolbar/images/rename.ico</iconset>
    </property>
    <property name="text">
     <string>Rename</string>
    </property>
    <property name="toolTip">
-    <string>Rename file</string>
+    <string>Rename file (F2)</string>
    </property>
    <property name="shortcut">
     <string>F2</string>
@@ -163,13 +200,13 @@
   <action name="actionDelete">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/delete/images/delete.ico</normaloff>:/delete/images/delete.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/delete.ico</normaloff>:/Menu&amp;Toolbar/images/delete.ico</iconset>
    </property>
    <property name="text">
     <string>Delete</string>
    </property>
    <property name="toolTip">
-    <string>Delete files</string>
+    <string>Delete files (Del)</string>
    </property>
    <property name="shortcut">
     <string>Del</string>
@@ -178,10 +215,13 @@
   <action name="actionMakeDirectory">
    <property name="icon">
     <iconset resource="../Icons.qrc">
-     <normaloff>:/make_directory/images/make_directory.ico</normaloff>:/make_directory/images/make_directory.ico</iconset>
+     <normaloff>:/Menu&amp;Toolbar/images/make_directory.ico</normaloff>:/Menu&amp;Toolbar/images/make_directory.ico</iconset>
    </property>
    <property name="text">
     <string>Make directory</string>
+   </property>
+   <property name="toolTip">
+    <string>Make directory (F7)</string>
    </property>
    <property name="shortcut">
     <string>F7</string>

@@ -8,6 +8,8 @@
 #ifndef _MAINWINDOW_H
 #define	_MAINWINDOW_H
 
+#include <list>
+#include "../FileSystem.h"
 #include "ConnectionSettings.h"
 #include "ui_MainWindow.h"
 
@@ -20,6 +22,7 @@ class MainWindow : public QMainWindow {
         virtual ~MainWindow();
         
     private:
+        FileSystem fs;
         Ui::MainWindow widget;
         ConnectionSettings *csWindow;
     
