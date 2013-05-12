@@ -9,6 +9,7 @@
 #define	_MAINWINDOW_H
 
 #include <list>
+#include "../Options.h"
 #include "../FileSystem.h"
 #include "ConnectionSettings.h"
 #include "ui_MainWindow.h"
@@ -21,11 +22,15 @@ class MainWindow : public QMainWindow {
         MainWindow(ConnectionSettings *csw);
         virtual ~MainWindow();
         
+    private slots:
+        void openPath(QString item);
+        
     private:
+        Options options;
         FileSystem fs;
         Ui::MainWindow widget;
         ConnectionSettings *csWindow;
-    
+        
 };
 
 #endif	/* _MAINWINDOW_H */

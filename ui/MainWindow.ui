@@ -49,8 +49,8 @@
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QTreeView" name="localFiles"/>
-       <widget class="QTreeView" name="remoteFiles"/>
+       <widget class="QListWidget" name="localFiles"/>
+       <widget class="QListWidget" name="remoteFiles"/>
       </widget>
       <widget class="QTextBrowser" name="logs"/>
      </widget>

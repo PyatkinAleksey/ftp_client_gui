@@ -5,6 +5,8 @@
  * Created on 12.05.2013, 13:05
  */
 
+#pragma once
+
 #include <windows.h>
 #include <string>
 

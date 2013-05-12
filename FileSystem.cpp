@@ -22,3 +22,15 @@ list<string> FileSystem::getGlobalEntities() {
     
     return globalEntities;
 }
+
+list<string> FileSystem::getFileNames(string path) {
+    WIN32_FIND_DATAA findFile;
+    HANDLE hFind = FindFirstFileA(path.append("\\*").c_str(), &findFile);
+    list<string> fileNames;
+    
+    do {
+        fileNames.push_back(findFile.cFileName);
+    } while (FindNextFileA(hFind, &findFile));
+    
+    return fileNames;
+}

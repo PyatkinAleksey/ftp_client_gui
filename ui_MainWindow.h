@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Sun 12. May 20:28:49 2013
+** Created: Sun 12. May 23:11:20 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -17,6 +17,7 @@
 #include <QtGui/QComboBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHeaderView>
+#include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
@@ -24,7 +25,6 @@
 #include <QtGui/QStatusBar>
 #include <QtGui/QTextBrowser>
 #include <QtGui/QToolBar>
-#include <QtGui/QTreeView>
 #include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -46,8 +46,8 @@ public:
     QComboBox *globalEntities;
     QSplitter *verticalSplitter;
     QSplitter *horizontalSplitter;
-    QTreeView *localFiles;
-    QTreeView *remoteFiles;
+    QListWidget *localFiles;
+    QListWidget *remoteFiles;
     QTextBrowser *logs;
     QMenuBar *mainMenu;
     QMenu *menuFile;
@@ -131,10 +131,10 @@ public:
         horizontalSplitter = new QSplitter(verticalSplitter);
         horizontalSplitter->setObjectName(QString::fromUtf8("horizontalSplitter"));
         horizontalSplitter->setOrientation(Qt::Horizontal);
-        localFiles = new QTreeView(horizontalSplitter);
+        localFiles = new QListWidget(horizontalSplitter);
         localFiles->setObjectName(QString::fromUtf8("localFiles"));
         horizontalSplitter->addWidget(localFiles);
-        remoteFiles = new QTreeView(horizontalSplitter);
+        remoteFiles = new QListWidget(horizontalSplitter);
         remoteFiles->setObjectName(QString::fromUtf8("remoteFiles"));
         horizontalSplitter->addWidget(remoteFiles);
         verticalSplitter->addWidget(horizontalSplitter);

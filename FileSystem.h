@@ -15,5 +15,6 @@ class FileSystem {
     
     public:
         list<string> getGlobalEntities();
+        list<string> getFileNames(string path);
     
 };
