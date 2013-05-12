@@ -9,14 +9,13 @@
 
 MainWindow::MainWindow(ConnectionSettings *csw) {
     list<string> globalEntities;
-    string globalEntity;
     int i;
-    
+
+    globalEntity = options.getParameter("paths", "globalEntity", "A:");
+    localPath = options.getParameter("paths", "localPath", globalEntity);
     widget.setupUi(this);
     csWindow = csw;
     csWindow->setModal(true);
-    connect(widget.actionConnectionSettings, SIGNAL(triggered()), csWindow, SLOT(show()));
-    globalEntity = options.getParameter("paths", "globalEntity", "A:");
     globalEntities = fs.getGlobalEntities();
     i = 0;
     for (list<string>::iterator iter = globalEntities.begin(); iter != globalEntities.end(); iter++) {
@@ -26,8 +25,10 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
         }
         i++;
     }
-    connect(widget.globalEntities, SIGNAL(currentIndexChanged(QString)), this, SLOT(openPath(QString)));
     openPath(QString::fromStdString(globalEntity));
+    connect(widget.actionConnectionSettings, SIGNAL(triggered()), csWindow, SLOT(show()));
+    connect(widget.globalEntities, SIGNAL(currentIndexChanged(QString)), this, SLOT(openPath(QString)));
+    connect(widget.localFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openPath(QListWidgetItem*)));
 }
 
 void MainWindow::openPath(QString item) {
@@ -39,9 +40,23 @@ void MainWindow::openPath(QString item) {
     for (list<string>::iterator iter = files.begin(); iter != files.end(); iter++) {
         widget.localFiles->addItem(QString::fromStdString(*iter));
     }
+    globalEntity = item.toStdString();
+    localPath = globalEntity;
+}
+
+void MainWindow::openPath(QListWidgetItem *item) {
+    list<string> files;
+    
+    localPath += "\\" + item->text().toStdString();
+    widget.localFiles->clear();
+    files = fs.getFileNames(localPath);
+    files.sort();
+    for (list<string>::iterator iter = files.begin(); iter != files.end(); iter++) {
+        widget.localFiles->addItem(QString::fromStdString(*iter));
+    }
 }
 
 MainWindow::~MainWindow() {
-    options.setParameter("paths", "globalEntity",
-            widget.globalEntities->itemText(widget.globalEntities->currentIndex()).toStdString());
+    options.setParameter("paths", "globalEntity", globalEntity);
+    options.setParameter("paths", "localPath", localPath);
 }

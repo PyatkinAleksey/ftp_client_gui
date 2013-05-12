@@ -24,12 +24,15 @@ class MainWindow : public QMainWindow {
         
     private slots:
         void openPath(QString item);
+        void openPath(QListWidgetItem *item);
         
     private:
         Options options;
         FileSystem fs;
         Ui::MainWindow widget;
         ConnectionSettings *csWindow;
+        string globalEntity;
+        string localPath;
         
 };
 

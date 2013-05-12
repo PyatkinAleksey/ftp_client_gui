@@ -6,6 +6,7 @@
  */
 
 #include <QtGui/QApplication>
+#include <QtCore/QTextCodec>
 #include <windows.h>
 #include <string.h>
 #include <iostream>
@@ -17,6 +18,7 @@ int main(int argc, char *argv[]) {
     ConnectionSettings *csWindow = new ConnectionSettings();
     MainWindow mainWindow(csWindow);
 
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("Windows-1251"));
     mainWindow.showMaximized();
 
     return app.exec();
