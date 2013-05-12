@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     ConnectionSettings *csWindow = new ConnectionSettings();
     MainWindow mainWindow(csWindow);
 
-    mainWindow.show();
+    mainWindow.showMaximized();
 
     return app.exec();
 }

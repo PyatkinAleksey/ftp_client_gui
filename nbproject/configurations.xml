@@ -24,6 +24,7 @@
       <itemPath>ui/ConnectionSettings.cpp</itemPath>
       <itemPath>ui/ConnectionSettings.h</itemPath>
       <itemPath>ui/ConnectionSettings.ui</itemPath>
+      <itemPath>Icons.qrc</itemPath>
       <itemPath>ui/MainWindow.cpp</itemPath>
       <itemPath>ui/MainWindow.h</itemPath>
       <itemPath>ui/MainWindow.ui</itemPath>
@@ -61,6 +62,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Options.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Options.h" ex="false" tool="3" flavor2="0">
@@ -128,6 +131,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Options.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Options.h" ex="false" tool="3" flavor2="0">
