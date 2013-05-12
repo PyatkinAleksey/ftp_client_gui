@@ -41,7 +41,7 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionConnection_settings"/>
+    <addaction name="actionConnectionSettings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -49,7 +49,7 @@
     </property>
     <addaction name="actionManual"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout_program"/>
+    <addaction name="actionAboutProgram"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
@@ -66,7 +66,7 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionConnection_settings">
+  <action name="actionConnectionSettings">
    <property name="text">
     <string>Connection settings</string>
    </property>
@@ -76,7 +76,7 @@
     <string>Manual</string>
    </property>
   </action>
-  <action name="actionAbout_program">
+  <action name="actionAboutProgram">
    <property name="text">
     <string>About program</string>
    </property>

@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=FTP-client (GUI)
+PROJECTNAME=FTP-client_gui
 
 # Active Configuration
 DEFAULTCONF=Debug

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Sat 11. May 23:54:31 2013
+** Created: Sun 12. May 12:11:23 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -28,9 +28,9 @@ class Ui_MainWindow
 public:
     QAction *actionConnect;
     QAction *actionExit;
-    QAction *actionConnection_settings;
+    QAction *actionConnectionSettings;
     QAction *actionManual;
-    QAction *actionAbout_program;
+    QAction *actionAboutProgram;
     QWidget *centralwidget;
     QMenuBar *mainMenu;
     QMenu *menuFile;
@@ -49,12 +49,12 @@ public:
         actionConnect->setObjectName(QString::fromUtf8("actionConnect"));
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
-        actionConnection_settings = new QAction(MainWindow);
-        actionConnection_settings->setObjectName(QString::fromUtf8("actionConnection_settings"));
+        actionConnectionSettings = new QAction(MainWindow);
+        actionConnectionSettings->setObjectName(QString::fromUtf8("actionConnectionSettings"));
         actionManual = new QAction(MainWindow);
         actionManual->setObjectName(QString::fromUtf8("actionManual"));
-        actionAbout_program = new QAction(MainWindow);
-        actionAbout_program->setObjectName(QString::fromUtf8("actionAbout_program"));
+        actionAboutProgram = new QAction(MainWindow);
+        actionAboutProgram->setObjectName(QString::fromUtf8("actionAboutProgram"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
@@ -78,10 +78,10 @@ public:
         menuFile->addAction(actionConnect);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
-        menuOptions->addAction(actionConnection_settings);
+        menuOptions->addAction(actionConnectionSettings);
         menuHelp->addAction(actionManual);
         menuHelp->addSeparator();
-        menuHelp->addAction(actionAbout_program);
+        menuHelp->addAction(actionAboutProgram);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -94,9 +94,9 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "FTP-client", 0, QApplication::UnicodeUTF8));
         actionConnect->setText(QApplication::translate("MainWindow", "Connect", 0, QApplication::UnicodeUTF8));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", 0, QApplication::UnicodeUTF8));
-        actionConnection_settings->setText(QApplication::translate("MainWindow", "Connection settings", 0, QApplication::UnicodeUTF8));
+        actionConnectionSettings->setText(QApplication::translate("MainWindow", "Connection settings", 0, QApplication::UnicodeUTF8));
         actionManual->setText(QApplication::translate("MainWindow", "Manual", 0, QApplication::UnicodeUTF8));
-        actionAbout_program->setText(QApplication::translate("MainWindow", "About program", 0, QApplication::UnicodeUTF8));
+        actionAboutProgram->setText(QApplication::translate("MainWindow", "About program", 0, QApplication::UnicodeUTF8));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0, QApplication::UnicodeUTF8));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0, QApplication::UnicodeUTF8));

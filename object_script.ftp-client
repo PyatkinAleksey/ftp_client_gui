@@ -1,0 +1,12 @@
+INPUT(
+./build/Release/MinGW-Windows/IniOptions.o
+./build/Release/MinGW-Windows/Options.o
+./build/Release/MinGW-Windows/ProtocolInterpreter.o
+./build/Release/MinGW-Windows/Service.o
+./build/Release/MinGW-Windows/UserDTP.o
+./build/Release/MinGW-Windows/main.o
+./build/Release/MinGW-Windows/ConnectionSettings.o
+./build/Release/MinGW-Windows/MainWindow.o
+./build/Release/MinGW-Windows/moc_ConnectionSettings.o
+./build/Release/MinGW-Windows/moc_MainWindow.o
+);
