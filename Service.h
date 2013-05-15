@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <iostream>
-#include <string.h>
+#include <string>
+#include <QtGui/QTextBrowser>
 
 using namespace std;
 
@@ -19,6 +19,10 @@ using namespace std;
 class Service {
     
     public:
-        void printMessage(int type, string message); // Вывод сообщений на экран
+        void setOutputArea(QTextBrowser *browser);      // Установка элемента, в который будут выводиться сообщения
+        void printMessage(int type, string message);    // Вывод сообщений на экран
+        
+    private:
+        static QTextBrowser *browser;   // Элемент для вывода сообщений
     
 };

@@ -165,7 +165,7 @@ void ProtocolInterpreter::setPort() {
     int i;
 
     port = 0;
-    while (symbol = strstr(replyBuffer, ",")) {
+    while ((symbol = strstr(replyBuffer, ","))) {
         *symbol = '.';
     }
     // Получение первого числа
@@ -284,7 +284,7 @@ void ProtocolInterpreter::printReply() {
  * @return Флаг успешности выполнения (0 - не успешно, другое - успешно).
  */
 int ProtocolInterpreter::sendCommand(string command) {
-    int success;
+    int success = 0;
     
     if (command == "USER") {
         success = sendUser();

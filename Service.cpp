@@ -7,6 +7,19 @@
 
 #include "Service.h"
 
+// Элемент для вывода сообщений должен быть статическим, поскольку будет создано
+// несколько экземпляров этого класса и все они должны будут работать с одним и тем же полем.
+QTextBrowser* Service::browser = NULL;
+
+/**
+ * Установка элемента для вывода сообщений.
+ * 
+ * @param browser Элемент.
+ */
+void Service::setOutputArea(QTextBrowser *browser) {
+    this->browser = browser;
+}
+
 /**
  * Вывод сообщений на экран.
  * 
@@ -17,17 +30,16 @@
 void Service::printMessage(int type, string message) {
     switch (type) {
         case 0:
-            cout << message;
+            browser->append(QString::fromStdString(message));
             break;
         case 1:
-            cout << "Info: " << message << endl;
+            browser->append(QString::fromStdString("Info: " + message + "\n"));
             break;
         case 2:
-            cout << "Error: " << message << endl;
+            browser->append(QString::fromStdString("Error: " + message + "\n"));
             break;
         case 3:
-            cout << "> " << message << endl;
-            cout << "> ";
+            browser->append(QString::fromStdString("> " + message + "\n" + "> "));
             break;
         default: break;
     }

@@ -153,12 +153,17 @@ void UserDTP::closeConnection() {
  */
 list<string> UserDTP::fileList() {
     list<string> filelist;
+    char *token;
     
     do {
-        memset(buffer, 0, 4096);
-        result = recv(dataSocket, buffer, 4096, 0);
+        memset(buffer, 0, MAX_BUF_LEN);
+        result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
         if (result > 0) {
-            filelist.push_back(buffer);
+            token = strtok(buffer, "\r\n");
+            while (token != NULL) {
+                filelist.push_back(token);
+                token = strtok(NULL, "\r\n");
+            }
         }
     } while (result > 0);
     
@@ -170,8 +175,8 @@ list<string> UserDTP::fileList() {
  */
 void UserDTP::fullList() {
     do {
-        memset(buffer, 0, 4096);
-        result = recv(dataSocket, buffer, 4096, 0);
+        memset(buffer, 0, MAX_BUF_LEN);
+        result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
         if (result > 0) {
             service->printMessage(0, buffer);
         }
@@ -187,8 +192,8 @@ void UserDTP::retrieve() {
 
     stream.open(fullPath.c_str(), ofstream::out);
     do {
-        memset(buffer, 0, 4096);
-        result = recv(dataSocket, buffer, 4096, 0);
+        memset(buffer, 0, MAX_BUF_LEN);
+        result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
         if (result > 0) {
             if (strstr(buffer, "226 ")) {
                 service->printMessage(0, buffer);

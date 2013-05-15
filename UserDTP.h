@@ -35,6 +35,7 @@ class UserDTP {
         int isConnected();                  // Проверка, осуществлено ли соединение по данным
         
     private:
+        static const int MAX_BUF_LEN = 4096; // Максимальная длина буфера
         Service *service;       // Объект сервисного класса
         SOCKET dataSocket;      // Сокет соединения данных
         SOCKET acceptSocket;    // Сокет для принятия входящих соединений

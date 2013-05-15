@@ -29,7 +29,9 @@ list<string> FileSystem::getFileNames(string path) {
     list<string> fileNames;
     
     do {
-        fileNames.push_back(findFile.cFileName);
+        if (strcmp(findFile.cFileName, ".")) {
+            fileNames.push_back(findFile.cFileName);
+        }
     } while (FindNextFileA(hFind, &findFile));
     
     return fileNames;

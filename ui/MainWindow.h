@@ -9,8 +9,12 @@
 #define	_MAINWINDOW_H
 
 #include <list>
+#include <QtGui/QInputDialog>
+#include <QtCore/QDir>
+#include "../Service.h"
 #include "../Options.h"
 #include "../FileSystem.h"
+#include "../ProtocolInterpreter.h"
 #include "ConnectionSettings.h"
 #include "ui_MainWindow.h"
 
@@ -25,10 +29,13 @@ class MainWindow : public QMainWindow {
     private slots:
         void openPath(QString item);
         void openPath(QListWidgetItem *item);
+        void ftpConnect();
         
     private:
+        Service *service;
         Options options;
         FileSystem fs;
+        ProtocolInterpreter *pi;
         Ui::MainWindow widget;
         ConnectionSettings *csWindow;
         string globalEntity;
