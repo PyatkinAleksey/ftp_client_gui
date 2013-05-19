@@ -10,4 +10,12 @@
     <file>images/rename.ico</file>
     <file>images/settings.ico</file>
   </qresource>
+  <qresource prefix="Window">
+    <file>images/icon.ico</file>
+  </qresource>
+  <qresource prefix="Content">
+      <file>images/folder.ico</file>
+      <file>images/file.ico</file>
+      <file>images/up.ico</file>
+  </qresource>
 </RCC>

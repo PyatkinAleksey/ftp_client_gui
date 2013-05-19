@@ -160,6 +160,10 @@ list<string> UserDTP::fileList() {
         result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
         if (result > 0) {
             token = strtok(buffer, "\r\n");
+            if (token != NULL && !filelist.empty()) {
+                (*(--filelist.end())).append(token);
+                token = strtok(NULL, "\r\n");
+            }
             while (token != NULL) {
                 filelist.push_back(token);
                 token = strtok(NULL, "\r\n");
@@ -171,24 +175,11 @@ list<string> UserDTP::fileList() {
 }
 
 /**
- * Получение списка файлов и директорий.
- */
-void UserDTP::fullList() {
-    do {
-        memset(buffer, 0, MAX_BUF_LEN);
-        result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
-        if (result > 0) {
-            service->printMessage(0, buffer);
-        }
-    } while (result > 0);
-}
-
-/**
  * Выполнение передачи файлов от сервера.
  */
 void UserDTP::retrieve() {
     ofstream stream;
-    string fullPath = localPath + path;
+    string fullPath = localPath;
 
     stream.open(fullPath.c_str(), ofstream::out);
     do {
@@ -212,7 +203,7 @@ void UserDTP::store() {
     ifstream stream;
     string buffer;
     
-    stream.open(path.c_str(), ifstream::in);
+    stream.open(localPath.c_str(), ifstream::in);
     while (getline(stream, buffer)) {
         buffer.append("\n");
         result = send(dataSocket, buffer.c_str(), buffer.length(), 0);
@@ -223,7 +214,7 @@ void UserDTP::store() {
     }
     stream.close();
     closeConnection();
-    service->printMessage(1, "Transfer sompleted!");
+    service->printMessage(1, "Transfer completed!");
 }
 
 UserDTP::~UserDTP() {

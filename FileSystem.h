@@ -11,10 +11,15 @@
 
 using namespace std;
 
+/**
+ * Класс для работы с файловой системой.
+ */
 class FileSystem {
     
     public:
-        list<string> getGlobalEntities();
-        list<string> getFileNames(string path);
+        list<string> getGlobalEntities();       // Получить список глобальных сущностей
+        list<string> getFileNames(string path); // Получить список файлов и директорий
+        int isFile(string path);                // Проверка пути, файл или каталог
+        int makeDirectory(string name);         // Создать директорию
     
 };

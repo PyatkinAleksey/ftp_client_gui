@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Mon 13. May 00:35:20 2013
+** Created: Sun 19. May 18:26:07 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -64,51 +64,54 @@ public:
         MainWindow->resize(782, 663);
         MainWindow->setFocusPolicy(Qt::NoFocus);
         MainWindow->setContextMenuPolicy(Qt::DefaultContextMenu);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/Window/images/icon.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionConnect = new QAction(MainWindow);
         actionConnect->setObjectName(QString::fromUtf8("actionConnect"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/Menu&Toolbar/images/connect.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionConnect->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/Menu&Toolbar/images/connect.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionConnect->setIcon(icon1);
         actionExit = new QAction(MainWindow);
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/Menu&Toolbar/images/exit.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionExit->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/Menu&Toolbar/images/exit.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionExit->setIcon(icon2);
         actionConnectionSettings = new QAction(MainWindow);
         actionConnectionSettings->setObjectName(QString::fromUtf8("actionConnectionSettings"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/Menu&Toolbar/images/settings.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionConnectionSettings->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/Menu&Toolbar/images/settings.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionConnectionSettings->setIcon(icon3);
         actionManual = new QAction(MainWindow);
         actionManual->setObjectName(QString::fromUtf8("actionManual"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/Menu&Toolbar/images/manual.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionManual->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/Menu&Toolbar/images/manual.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionManual->setIcon(icon4);
         actionAboutProgram = new QAction(MainWindow);
         actionAboutProgram->setObjectName(QString::fromUtf8("actionAboutProgram"));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/Menu&Toolbar/images/about_program.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionAboutProgram->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/Menu&Toolbar/images/about_program.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAboutProgram->setIcon(icon5);
         actionCopy = new QAction(MainWindow);
         actionCopy->setObjectName(QString::fromUtf8("actionCopy"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/Menu&Toolbar/images/copy.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionCopy->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/Menu&Toolbar/images/copy.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionCopy->setIcon(icon6);
         actionRename = new QAction(MainWindow);
         actionRename->setObjectName(QString::fromUtf8("actionRename"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/Menu&Toolbar/images/rename.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionRename->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/Menu&Toolbar/images/rename.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionRename->setIcon(icon7);
         actionDelete = new QAction(MainWindow);
         actionDelete->setObjectName(QString::fromUtf8("actionDelete"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/Menu&Toolbar/images/delete.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionDelete->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/Menu&Toolbar/images/delete.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionDelete->setIcon(icon8);
         actionMakeDirectory = new QAction(MainWindow);
         actionMakeDirectory->setObjectName(QString::fromUtf8("actionMakeDirectory"));
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/Menu&Toolbar/images/make_directory.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        actionMakeDirectory->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/Menu&Toolbar/images/make_directory.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionMakeDirectory->setIcon(icon9);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
@@ -133,9 +136,13 @@ public:
         horizontalSplitter->setOrientation(Qt::Horizontal);
         localFiles = new QListWidget(horizontalSplitter);
         localFiles->setObjectName(QString::fromUtf8("localFiles"));
+        localFiles->setEditTriggers(QAbstractItemView::SelectedClicked);
+        localFiles->setSelectionMode(QAbstractItemView::ExtendedSelection);
         horizontalSplitter->addWidget(localFiles);
         remoteFiles = new QListWidget(horizontalSplitter);
         remoteFiles->setObjectName(QString::fromUtf8("remoteFiles"));
+        remoteFiles->setEditTriggers(QAbstractItemView::SelectedClicked);
+        remoteFiles->setSelectionMode(QAbstractItemView::ExtendedSelection);
         horizontalSplitter->addWidget(remoteFiles);
         verticalSplitter->addWidget(horizontalSplitter);
         logs = new QTextBrowser(verticalSplitter);

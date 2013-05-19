@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Thu 16. May 00:50:10 2013
+** Created: Sun 19. May 19:39:38 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -33,14 +33,18 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: signature, parameters, type, tag, flags
       17,   12,   11,   11, 0x08,
       35,   12,   11,   11, 0x08,
-      62,   11,   11,   11, 0x08,
+      62,   12,   11,   11, 0x08,
+      95,   11,   11,   11, 0x08,
+     108,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0item\0openPath(QString)\0"
-    "openPath(QListWidgetItem*)\0ftpConnect()\0"
+    "openPath(QListWidgetItem*)\0"
+    "openRemotePath(QListWidgetItem*)\0"
+    "ftpConnect()\0copy()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -74,10 +78,12 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: openPath((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 1: openPath((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 2: ftpConnect(); break;
+        case 2: openRemotePath((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 3: ftpConnect(); break;
+        case 4: copy(); break;
         default: ;
         }
-        _id -= 3;
+        _id -= 5;
     }
     return _id;
 }

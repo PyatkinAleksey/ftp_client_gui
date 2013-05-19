@@ -8,11 +8,11 @@
 #include "ProtocolInterpreter.h"
 
 /**
- * Поточная функция для запуска передачи файлов отдельным потоком.
+ * Поточная функция для открытия соединения в отдельном потоке.
  * 
  * @param parameter Должен быть передан указатель на объект класса ProtocolInterpreter
  * 
- * @return 
+ * @return 0.
  */
 DWORD WINAPI startDTP(LPVOID parameter) {
     ProtocolInterpreter *pi = (ProtocolInterpreter*)parameter;
@@ -181,9 +181,7 @@ void ProtocolInterpreter::setPort() {
     // Получение второго числа
     i = 0;
     symbol++;
-    while (*symbol == '0' || *symbol == '1' || *symbol == '2' || *symbol == '3' ||
-            *symbol == '4' || *symbol == '5' || *symbol == '6' || *symbol == '7' ||
-            *symbol == '8' || *symbol == '9') {
+    while ((*symbol >= '0') && (*symbol <= '9')) {
         num[i] = *symbol;
         i++;
         symbol++;
@@ -193,9 +191,20 @@ void ProtocolInterpreter::setPort() {
 }
 
 /**
- * Открытие управляющего соединения.
+ * Получить список файлов и директорий, возвращенный командами LIST и NLST.
+ * 
+ * @return Список файлов и директорий.
  */
-void ProtocolInterpreter::openControlConnection() {
+list<string> ProtocolInterpreter::getFileList() {
+    return fileList;
+}
+
+/**
+ * Открытие управляющего соединения.
+ * 
+ * return 0 - не удалось соединиться, другое - соединение успешно установлено.
+ */
+int ProtocolInterpreter::openControlConnection() {
     WORD wVersionRequested;
     WSADATA wsaData;
     sockaddr_in clientAddress;
@@ -205,17 +214,20 @@ void ProtocolInterpreter::openControlConnection() {
     result = WSAStartup(wVersionRequested, &wsaData);
     if (result != NO_ERROR) {
         service->printMessage(2, "Connection failed!");
-        return;
+        return 0;
     }
     // Получение IP-адреса по имени хоста, если требуется
     hostEntry = gethostbyname(address.c_str());
+    if (hostEntry == NULL) {
+        return 0;
+    }
     address = inet_ntoa(*(struct in_addr*)*hostEntry->h_addr_list);
     // Создание сокета
     connectionSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (connectionSocket == INVALID_SOCKET) {
         service->printMessage(2, "Invalid socket!");
         WSACleanup();
-        return;
+        return 0;
     }
     // Открытие управляющего соединения
     clientAddress.sin_family = AF_INET;
@@ -229,7 +241,7 @@ void ProtocolInterpreter::openControlConnection() {
             service->printMessage(2, "Close socket error!");
         }
         WSACleanup();
-        return;
+        return 0;
     }
     // Получение отклика-приветствия
     do {
@@ -238,11 +250,12 @@ void ProtocolInterpreter::openControlConnection() {
             service->printMessage(0, replyBuffer);
             if (strstr(replyBuffer, "220 ")) {
                 // Приветствие получено
-                break;
+                return 1;
             }
             memset(replyBuffer, 0, MAX_BUF_LEN);
         }
     } while(result > 0);
+    return 0;
 }
 
 /**
@@ -259,8 +272,8 @@ void ProtocolInterpreter::closeControlConnection() {
 void ProtocolInterpreter::printReply() {
     string code = "000 ";
     
-    memset(replyBuffer, 0, MAX_BUF_LEN);
     do {
+        memset(replyBuffer, 0, MAX_BUF_LEN);
         result = recv(connectionSocket, replyBuffer, MAX_BUF_LEN, 0);
         if (result > 0) {
             if (code == "000 ") {
@@ -269,11 +282,8 @@ void ProtocolInterpreter::printReply() {
                 code[2] = replyBuffer[2];
             }
             service->printMessage(0, replyBuffer);
-            if (strstr(replyBuffer, code.c_str())) {
-                break;
-            }
         }
-    } while(result > 0);
+    } while(!strstr(replyBuffer, code.c_str()));
 }
 
 /**
@@ -543,10 +553,14 @@ int ProtocolInterpreter::sendNlst() {
         udtp->setPort(port);
         connection = CreateThread(NULL, 0, startDTP, this, 0, NULL);
     }
+    printReply();
     udtp->setPath(path);
     fileList = udtp->fileList();
+    if (passive) {
+        udtp->closeConnection();
+    }
     printReply();
-    printReply();
+
     if (strstr(replyBuffer, "226 ")) {
         return 1;
     } else {
@@ -589,10 +603,14 @@ int ProtocolInterpreter::sendList() {
         udtp->setPort(port);
         connection = CreateThread(NULL, 0, startDTP, this, 0, NULL);
     }
+    printReply();
     udtp->setPath(path);
-    udtp->fullList();
+    fileList = udtp->fileList();
+    if (passive) {
+        udtp->closeConnection();
+    }
     printReply();
-    printReply();
+    
     if (strstr(replyBuffer, "226 ")) {
         return 1;
     } else {
@@ -658,12 +676,13 @@ int ProtocolInterpreter::sendRetr() {
     } else {
         if (!strstr(replyBuffer, "550 ")) {
             udtp->retrieve();
+            if (passive) {
+                udtp->closeConnection();
+            }
             printReply();
         }
     }
-    if (passive) {
-        udtp->closeConnection();
-    }
+    
     if (strstr(replyBuffer, "226 ") || strstr(replyBuffer, "250 ")) {
         return 1;
     } else {
@@ -679,6 +698,7 @@ int ProtocolInterpreter::sendRetr() {
 int ProtocolInterpreter::sendStor() {
     udtp->setAddress(address);
     udtp->setPath(path);
+    udtp->setLocalPath(localPath);
     udtp->setPassive(passive);
     if (passive) {
         if (strstr(replyBuffer, "227 ")) {

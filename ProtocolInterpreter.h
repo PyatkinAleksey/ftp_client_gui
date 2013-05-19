@@ -25,11 +25,9 @@ using namespace std;
  */
 class ProtocolInterpreter {
     public:
-        list<string> fileList;                  // Список имен файлов и директорий, полученный командой NLST
-        
         ProtocolInterpreter();                  // Инициализация интерпретатора протокола
         ~ProtocolInterpreter();                 // Освобождение ресурсов
-        void openControlConnection();           // Открытие управляющего соединения
+        int openControlConnection();            // Открытие управляющего соединения
         void closeControlConnection();          // Закрытие управляющего соединения
         void setLocalPath(string path);         // Установка локального пути для передачи файлов
         void setAddress(string address);        // Установка значения адреса сервера
@@ -43,6 +41,7 @@ class ProtocolInterpreter {
         void setPortData();                     // Установка данных для команды PORT
         void setPort();                         // Установка номера динамического порта из 227 отклика команды PASV
         void setPassive(int passive);           // Установка флага использования пассивного режима
+        list<string> getFileList();             // Получить список файлов
         int sendCommand(string command);        // Отправка команды
         
     private:
@@ -66,6 +65,7 @@ class ProtocolInterpreter {
         char replyBuffer[MAX_BUF_LEN];          // Буфер откликов
         string commandBuffer;                   // Буфер команд
         int result;                             // Код результата
+        list<string> fileList;                  // Список имен файлов и директорий, полученный командой NLST
         
         void printReply();                              // Вывод отклика от сервера
         int sendUser();                                 // Отправка команды USER
@@ -93,5 +93,5 @@ class ProtocolInterpreter {
         int sendSyst();                                 // Отправка команды SYST
         int sendStat();                                 // Отправка команды STAT
         int sendNoop();                                 // Отправка команды NOOP
-        friend DWORD WINAPI startDTP(LPVOID parameter); // Поточная функция передачи файлов
+        friend DWORD WINAPI startDTP(LPVOID parameter);     // Поточная функция открытия соединения по данным
 };
