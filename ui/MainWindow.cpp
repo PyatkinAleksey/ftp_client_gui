@@ -41,6 +41,7 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
     connect(widget.remoteFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openRemotePath(QListWidgetItem*)));
     connect(widget.actionConnect, SIGNAL(triggered()), this, SLOT(ftpConnect()));
     connect(widget.actionCopy, SIGNAL(triggered()), this, SLOT(copy()));
+    connect(widget.actionMakeDirectory, SIGNAL(triggered()), this, SLOT(makeDir()));
 }
 
 /**
@@ -167,10 +168,6 @@ void MainWindow::copy() {
                 remotePath.erase(pos, remotePath.length() - pos);
             }
         }
-        widget.remoteFiles->clear();
-        if (nestingCounter) {
-            widget.remoteFiles->addItem(new QListWidgetItem(QIcon(":/Content/images/up.ico"), ".."));
-        }
         getRemoteFileList();
     } else if (this->focusWidget() == widget.remoteFiles) { // Выбран удаленный файл или каталог
         for (int i = 0; i < widget.remoteFiles->selectedItems().size(); i++) {
@@ -212,6 +209,35 @@ void MainWindow::copy() {
 }
 
 /**
+ * Создание директорий.
+ */
+void MainWindow::makeDir() {
+    string name;
+    bool ok;
+    
+    if (this->focusWidget() == widget.localFiles) { // Выбран локальный файл или каталог
+        name = QInputDialog::getText(this, "Enter directory's name",
+                "Name:", QLineEdit::Normal, QDir::home().dirName(), &ok).toStdString();
+        if (!ok || name.empty()) {
+            return;
+        }
+        fs.makeDirectory(localPath + "/" + name);
+        getLocalFileList();
+    } else if (this->focusWidget() == widget.remoteFiles) { // Выбран удаленный файл или каталог
+        name = QInputDialog::getText(this, "Enter directory's name",
+                "Name:", QLineEdit::Normal, QDir::home().dirName(), &ok).toStdString();
+        if (!ok || name.empty()) {
+            return;
+        }
+        pi->setPath(remotePath + "/" + name);
+        pi->sendCommand("MKD");
+        getRemoteFileList();
+    } else {
+        QMessageBox::information(this, "Information", "You should select a file or directory!");
+    }
+}
+
+/**
  * Вывести список локальных файлов и каталогов в текущей директории.
  */
 void MainWindow::getLocalFileList() {
@@ -244,6 +270,10 @@ void MainWindow::getRemoteFileList() {
     list<string> nameList;
     list<string> fullList;
     
+    widget.remoteFiles->clear();
+    if (nestingCounter) {
+        widget.remoteFiles->addItem(new QListWidgetItem(QIcon(":/Content/images/up.ico"), ".."));
+    }
     passive = options.getParameter("modes", "passive", 1);
     pi->setPassive(passive);
     if (passive) {

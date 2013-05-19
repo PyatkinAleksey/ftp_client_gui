@@ -36,6 +36,7 @@ class MainWindow : public QMainWindow {
         void openRemotePath(QListWidgetItem *item); // Вывод списка файлов и директорий при навигации по каталогам сервера
         void ftpConnect();                          // Осуществление соединения и получения списка файлов и директорий корневого каталога
         void copy();                                // Копирование файлов и директорий
+        void makeDir();                             // Создание директорий
         
     private:
         Ui::MainWindow widget;          // Виджет главного окна
