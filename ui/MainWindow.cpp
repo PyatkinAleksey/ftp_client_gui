@@ -25,6 +25,8 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
     service->setOutputArea(widget.logs);
     csWindow = csw;
     csWindow->setModal(true);
+    apWindow = new AboutProgram();
+    apWindow->setModal(true);
     globalEntities = fs.getGlobalEntities();
     i = 0;
     for (list<string>::iterator iter = globalEntities.begin(); iter != globalEntities.end(); iter++) {
@@ -46,6 +48,7 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
     connect(widget.actionRename, SIGNAL(triggered()), this, SLOT(rename()));
     connect(widget.actionDelete, SIGNAL(triggered()), this, SLOT(deleteFiles()));
     connect(widget.actionMakeDirectory, SIGNAL(triggered()), this, SLOT(makeDir()));
+    connect(widget.actionAboutProgram, SIGNAL(triggered()), apWindow, SLOT(show()));
 }
 
 /**

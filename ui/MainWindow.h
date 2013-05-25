@@ -17,6 +17,7 @@
 #include "../FileSystem.h"
 #include "../ProtocolInterpreter.h"
 #include "ConnectionSettings.h"
+#include "AboutProgram.h"
 #include "ui_MainWindow.h"
 
 /**
@@ -49,6 +50,7 @@ class MainWindow : public QMainWindow {
         FileSystem fs;                  // Объект класса для работы с файловой системой
         ProtocolInterpreter *pi;        // Указатель на объект интерпретатора протокола
         ConnectionSettings *csWindow;   // Указатель на окно свойств соединения
+        AboutProgram *apWindow;         // Указатель на окно "О программе"
         string globalEntity;            // Глобальная сущность
         string localPath;               // Локальный путь
         string remotePath;              // Путь на сервере
