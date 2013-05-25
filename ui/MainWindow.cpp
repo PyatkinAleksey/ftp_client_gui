@@ -38,9 +38,13 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
     connect(widget.actionConnectionSettings, SIGNAL(triggered()), csWindow, SLOT(show()));
     connect(widget.globalEntities, SIGNAL(currentIndexChanged(QString)), this, SLOT(openPath(QString)));
     connect(widget.localFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openPath(QListWidgetItem*)));
+    connect(widget.localFiles, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(renamedLocal(QListWidgetItem*)));
     connect(widget.remoteFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openRemotePath(QListWidgetItem*)));
+    connect(widget.remoteFiles, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(renamedRemote(QListWidgetItem*)));
     connect(widget.actionConnect, SIGNAL(triggered()), this, SLOT(ftpConnect()));
     connect(widget.actionCopy, SIGNAL(triggered()), this, SLOT(copy()));
+    connect(widget.actionRename, SIGNAL(triggered()), this, SLOT(rename()));
+    connect(widget.actionDelete, SIGNAL(triggered()), this, SLOT(deleteFiles()));
     connect(widget.actionMakeDirectory, SIGNAL(triggered()), this, SLOT(makeDir()));
 }
 
@@ -203,6 +207,98 @@ void MainWindow::copy() {
             }
         }
         getLocalFileList();
+    } else {
+        QMessageBox::information(this, "Information", "You should select a file or directory!");
+    }
+}
+
+/**
+ * Переименование выделенного файла или директории.
+ */
+void MainWindow::rename() {   
+    if (this->focusWidget() == widget.localFiles) { // Выбран локальный файл или каталог
+        QListWidgetItem *item = *widget.localFiles->selectedItems().begin();
+        oldName = item->text().toStdString();
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
+        widget.localFiles->editItem(item);
+    } else if (this->focusWidget() == widget.remoteFiles) { // Выбран удаленный файл или каталог
+        QListWidgetItem *item = *widget.remoteFiles->selectedItems().begin();
+        oldName = item->text().toStdString();
+        item->setFlags(item->flags() | Qt::ItemIsEditable);
+        widget.remoteFiles->editItem(item);
+    } else {
+        QMessageBox::information(this, "Information", "You should select a file or directory!");
+    }
+}
+
+/**
+ * Переименован локальный файл или директория.
+ * 
+ * @param item Файла или директория.
+ */
+void MainWindow::renamedLocal(QListWidgetItem *item) {
+    QFile::rename(QString::fromStdString(localPath + "/" + oldName),
+            QString::fromStdString(localPath + "/" + item->text().toStdString())); // Переименование
+}
+
+/**
+ * Переименован файл или директория на сервере.
+ * 
+ * @param item Файл или директория.
+ */
+void MainWindow::renamedRemote(QListWidgetItem *item) {
+    pi->setPath(localPath + "/" + oldName);
+    pi->setNewPath(localPath + "/" + item->text().toStdString());
+    if (pi->sendCommand("RNFR")) {
+        pi->sendCommand("RNTO");
+    }
+}
+
+/**
+ * Удаление выбранных файлов и директорий.
+ */
+void MainWindow::deleteFiles() {
+    QList<QListWidgetItem*> files;
+    string path;
+    
+    if (this->focusWidget() == widget.localFiles) { // Выбран локальный файл или каталог
+        files = widget.localFiles->selectedItems();
+        for (int i = 0; i < files.size(); i++) {
+            path = files.at(i)->text().toStdString();
+            if (fs.isFile(localPath + "/" + path)) {
+                if (fs.deleteFile(localPath + "/" + path)) {
+                    service->printMessage(1, "File '" + localPath + "/" + path + "' successfully removed.");
+                } else {
+                    service->printMessage(1, "File '" + localPath + "/" + path + "' was not removed.");
+                }
+            } else {
+                if (fs.deleteDirectory(localPath + "/" + files.at(i)->text().toStdString())) {
+                    service->printMessage(1, "Folder '" + localPath + "/" + path + "' successfully removed.");
+                } else {
+                    service->printMessage(1, "Folder '" + localPath + "/" + path + "' was not removed.");
+                }
+            }
+        }
+        getLocalFileList();
+    } else if (this->focusWidget() == widget.remoteFiles) { // Выбран удаленный файл или каталог
+        for (int i = 0; i < widget.remoteFiles->selectedItems().size(); i++) {
+            path = widget.remoteFiles->selectedItems().at(i)->text().toStdString();
+            if (widget.remoteFiles->selectedItems().at(i)->type()) { // Файл
+                pi->setPath(remotePath + "/" + path);
+                if (pi->sendCommand("DELE")) {
+                    service->printMessage(1, "File '" + remotePath + "/" + path + "' successfully removed.");
+                } else {
+                    service->printMessage(1, "File '" + localPath + "/" + path + "' was not removed.");
+                }
+            } else { // Директория
+                if (deleteRemoteFolder(remotePath + "/" + path)) {
+                    service->printMessage(1, "Folder '" + remotePath + "/" + path + "' successfully removed.");
+                } else {
+                    service->printMessage(1, "Folder '" + remotePath + "/" + path + "' was not removed.");
+                }
+            }
+        }
+        getRemoteFileList();
     } else {
         QMessageBox::information(this, "Information", "You should select a file or directory!");
     }
@@ -410,6 +506,68 @@ void MainWindow::retrieveFolder(string path) {
                 fullListIter++;
             }
         }
+    }
+}
+
+/**
+ * Рекурсивное удаление содержимого директорий.
+ * 
+ * @param path Имя директории.
+ * 
+ * @return 0 -не удалось удалить, другое - успешно удалена.
+ */
+int MainWindow::deleteRemoteFolder(string path) {
+    list<string> files;
+    list<string> fullList;
+    int passive;
+    int success = 1;
+
+    pi->setPath(path);
+    pi->sendCommand("CWD");
+    passive = options.getParameter("modes", "passive", 1);
+    if (passive) {
+        pi->sendCommand("PASV");
+    } else {
+        pi->sendCommand("PORT");
+    }
+    if (pi->sendCommand("LIST")) {
+        fullList = pi->getFileList();
+        if (passive) {
+            pi->sendCommand("PASV");
+        } else {
+            pi->sendCommand("PORT");
+        }
+        if (pi->sendCommand("NLST")) {
+            files = pi->getFileList();
+            list<string>::iterator fullListIter = fullList.begin();
+            for (list<string>::iterator iter = files.begin(); iter != files.end(); iter++) {
+                if ((*fullListIter)[0] == 'd') { // Директория
+                    if (deleteRemoteFolder(path + "/" + *iter)) {
+                        service->printMessage(1, "Folder '" + path + "/" + *iter + "' successfully removed.");
+                    } else {
+                        service->printMessage(1, "Folder '" + path + "/" + *iter + "' was not removed.");
+                        success = 0;
+                    }
+                } else { // Файл
+                    pi->setPath(path + "/" + *iter);
+                    if (pi->sendCommand("DELE")) {
+                        service->printMessage(1, "File '" + path + "/" + *iter + "' successfully removed.");
+                    } else {
+                        service->printMessage(1, "File '" + path + "/" + *iter + "' was not removed.");
+                        success = 0;
+                    }
+                }
+                fullListIter++;
+            }
+        }
+    }
+    pi->setPath("..");
+    pi->sendCommand("CWD");
+    if (success) {
+        pi->setPath(path);
+        return (pi->sendCommand("RMD"));
+    } else {
+        return 0;
     }
 }
 

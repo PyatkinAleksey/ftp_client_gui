@@ -20,5 +20,5 @@ UI_DIR =
 QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
-INCLUDEPATH += /C/Qt/4.6.0/include /C/MinGW/include 
+INCLUDEPATH += /C/Qt/4.6.0/include /C/MinGW/include . 
 LIBS += -lws2_32  

@@ -54,8 +54,11 @@
         <enum>Qt::Horizontal</enum>
        </property>
        <widget class="QListWidget" name="localFiles">
+        <property name="autoScrollMargin">
+         <number>15</number>
+        </property>
         <property name="editTriggers">
-         <set>QAbstractItemView::SelectedClicked</set>
+         <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
         </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::ExtendedSelection</enum>

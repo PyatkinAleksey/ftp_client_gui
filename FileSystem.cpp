@@ -44,6 +44,7 @@ list<string> FileSystem::getFileNames(string path) {
         if (strcmp(findFile.cFileName, ".")) {
             fileNames.push_back(findFile.cFileName);
         }
+        CloseHandle(hFind);
     } while (FindNextFileA(hFind, &findFile));
     
     return fileNames;
@@ -73,4 +74,47 @@ int FileSystem::isFile(string path) {
  */
 int FileSystem::makeDirectory(string name) {
     return CreateDirectoryA(name.c_str(), 0);
+}
+
+/**
+ * Удалить файл.
+ * 
+ * @param name Путь к файлу.
+ * 
+ * @return 0 - не удален, другое - удален.
+ */
+int FileSystem::deleteFile(string name) {
+    SHFILEOPSTRUCTA fileOperation;
+    
+    fileOperation.hwnd                  = NULL;
+    fileOperation.wFunc                 = FO_DELETE;
+    fileOperation.pFrom                 = name.c_str();
+    fileOperation.pTo                   = NULL;
+    fileOperation.fFlags                = FOF_CONFIRMMOUSE | FOF_SILENT;
+    fileOperation.fAnyOperationsAborted = FALSE;
+    fileOperation.lpszProgressTitle     = NULL;
+    fileOperation.hNameMappings         = NULL;
+    
+    return (SHFileOperationA(&fileOperation) == 0);
+}
+
+/**
+ * Удалить директорию.
+ * 
+ * @param name Путь до директории.
+ * 
+ * @return 0 - не удалена, другое - удалена.
+ */
+int FileSystem::deleteDirectory(string name) {
+    return deleteFile(name);
+}
+
+/**
+ * Переименовать файл или директорию.
+ * 
+ * @param name 
+ * @return 
+ */
+int FileSystem::rename(string name) {
+    
 }

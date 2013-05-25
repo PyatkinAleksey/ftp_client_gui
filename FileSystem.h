@@ -21,5 +21,8 @@ class FileSystem {
         list<string> getFileNames(string path); // Получить список файлов и директорий
         int isFile(string path);                // Проверка пути, файл или каталог
         int makeDirectory(string name);         // Создать директорию
+        int deleteFile(string name);            // Удалить файл
+        int deleteDirectory(string name);       // Удалить директорию
+        int rename(string name);                // переименовать файл или директорию
     
 };

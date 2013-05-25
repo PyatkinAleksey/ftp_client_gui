@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Sun 19. May 18:26:07 2013
+** Created: Tue 21. May 10:32:25 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -136,7 +136,8 @@ public:
         horizontalSplitter->setOrientation(Qt::Horizontal);
         localFiles = new QListWidget(horizontalSplitter);
         localFiles->setObjectName(QString::fromUtf8("localFiles"));
-        localFiles->setEditTriggers(QAbstractItemView::SelectedClicked);
+        localFiles->setAutoScrollMargin(15);
+        localFiles->setEditTriggers(QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked);
         localFiles->setSelectionMode(QAbstractItemView::ExtendedSelection);
         horizontalSplitter->addWidget(localFiles);
         remoteFiles = new QListWidget(horizontalSplitter);

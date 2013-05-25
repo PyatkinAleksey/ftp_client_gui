@@ -36,6 +36,10 @@ class MainWindow : public QMainWindow {
         void openRemotePath(QListWidgetItem *item); // Вывод списка файлов и директорий при навигации по каталогам сервера
         void ftpConnect();                          // Осуществление соединения и получения списка файлов и директорий корневого каталога
         void copy();                                // Копирование файлов и директорий
+        void rename();                              // Переименование файла или директории
+        void renamedLocal(QListWidgetItem *item);   // Переименован локальный файл или директория
+        void renamedRemote(QListWidgetItem *item);  // Переименован файл или директория на сервере
+        void deleteFiles();                         // Удаление файлов и директорий
         void makeDir();                             // Создание директорий
         
     private:
@@ -49,11 +53,13 @@ class MainWindow : public QMainWindow {
         string localPath;               // Локальный путь
         string remotePath;              // Путь на сервере
         int nestingCounter;             // Счетчик вложенности каталогов для определения корневой директории сервера
+        string oldName;                 // Старое имя файла для операции переименования
 
-        void getLocalFileList();            // Вывести список локальных файлов и каталогов в текущей директории
-        void getRemoteFileList();           // Вывести список файлов и каталогов сервера в текущей директории
-        void storeFolder(string path);      // Отправить каталог на сервер
-        void retrieveFolder(string path);   // Скопировать каталог с сервера
+        void getLocalFileList();                // Вывести список локальных файлов и каталогов в текущей директории
+        void getRemoteFileList();               // Вывести список файлов и каталогов сервера в текущей директории
+        void storeFolder(string path);          // Отправить каталог на сервер
+        void retrieveFolder(string path);       // Скопировать каталог с сервера
+        int deleteRemoteFolder(string path);    // Удалить файл или директорию
         
 };
 
