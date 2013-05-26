@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Tue 21. May 10:32:25 2013
+** Created: Sun 26. May 23:48:27 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -43,7 +43,7 @@ public:
     QAction *actionMakeDirectory;
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
-    QComboBox *globalEntities;
+    QComboBox *drives;
     QSplitter *verticalSplitter;
     QSplitter *horizontalSplitter;
     QListWidget *localFiles;
@@ -116,11 +116,11 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        globalEntities = new QComboBox(centralwidget);
-        globalEntities->setObjectName(QString::fromUtf8("globalEntities"));
-        globalEntities->setMinimumSize(QSize(764, 0));
+        drives = new QComboBox(centralwidget);
+        drives->setObjectName(QString::fromUtf8("drives"));
+        drives->setMinimumSize(QSize(764, 0));
 
-        gridLayout_2->addWidget(globalEntities, 0, 0, 1, 1);
+        gridLayout_2->addWidget(drives, 0, 0, 1, 1);
 
         verticalSplitter = new QSplitter(centralwidget);
         verticalSplitter->setObjectName(QString::fromUtf8("verticalSplitter"));

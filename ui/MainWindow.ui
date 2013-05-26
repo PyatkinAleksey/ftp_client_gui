@@ -26,7 +26,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
-     <widget class="QComboBox" name="globalEntities">
+     <widget class="QComboBox" name="drives">
       <property name="minimumSize">
        <size>
         <width>764</width>
