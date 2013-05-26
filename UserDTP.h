@@ -31,6 +31,7 @@ class UserDTP {
         void setAddress(string address);    // Установка адреса сервера
         void setPath(string path);          // Установка пути к файлу
         void setPort(int port);             // Установка порта для соединения по данным
+        void setType(string type);          // Установка типа передаваемых данных
         void setPassive(int passive);       // Установка флага использования пассивного режима
         int isConnected();                  // Проверка, осуществлено ли соединение по данным
         
@@ -44,6 +45,7 @@ class UserDTP {
         string address;         // Адрес сервера
         string path;            // Путь к файлу
         int port;               // Порт для соединения по данным
+        string type;            // Тип передаваемых данных
         int passive;            // Флаг использования пассивного режима
         char buffer[4096];      // Буфер
         int connected;          // Флаг осуществлено ли соединение по данным

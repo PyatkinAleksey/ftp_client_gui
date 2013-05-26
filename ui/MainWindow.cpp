@@ -136,6 +136,8 @@ void MainWindow::ftpConnect() {
         pi->setPassword(password);
         pi->sendCommand("PASS");
     }
+    pi->setType(options.getParameter("modes", "type", "A N"));
+    pi->sendCommand("TYPE");
     getRemoteFileList();
 }
 

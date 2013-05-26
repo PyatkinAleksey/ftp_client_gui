@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'AboutProgram.ui'
 **
-** Created: Sat 25. May 20:28:35 2013
+** Created: Sat 25. May 20:39:51 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -49,7 +49,7 @@ public:
 
     void retranslateUi(QDialog *AboutProgram)
     {
-        AboutProgram->setWindowTitle(QApplication::translate("AboutProgram", "About program", 0, QApplication::UnicodeUTF8));
+        AboutProgram->setWindowTitle(QApplication::translate("AboutProgram", "AboutProgram", 0, QApplication::UnicodeUTF8));
         textBrowser->setHtml(QApplication::translate("AboutProgram", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

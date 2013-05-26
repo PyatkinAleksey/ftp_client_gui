@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ConnectionSettings.ui'
 **
-** Created: Sun 12. May 16:34:45 2013
+** Created: Sat 25. May 20:39:52 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -129,6 +129,7 @@ public:
         type->clear();
         type->insertItems(0, QStringList()
          << QApplication::translate("ConnectionSettings", "ASCII Non-Print", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("ConnectionSettings", "Image", 0, QApplication::UnicodeUTF8)
         );
         labelMode->setText(QApplication::translate("ConnectionSettings", "Mode:", 0, QApplication::UnicodeUTF8));
         mode->clear();

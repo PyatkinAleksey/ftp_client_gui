@@ -21,6 +21,8 @@ void ConnectionSettings::getValues() {
     parameter = options.getParameter("modes", "type", "A N");
     if (parameter == "A N") {
         widget.type->setCurrentIndex(0);
+    } else if (parameter == "I") {
+        widget.type->setCurrentIndex(1);
     } else {
         widget.type->setCurrentIndex(0); // По-умолчанию - тип ASCII Non-Print
     }
@@ -52,6 +54,9 @@ void ConnectionSettings::accept() {
     switch (widget.type->currentIndex()) {
         case 0:
             options.setParameter("modes", "type", "A N");
+            break;
+        case 1:
+            options.setParameter("modes", "type", "I");
             break;
         default:
             options.setParameter("modes", "type", "A N");

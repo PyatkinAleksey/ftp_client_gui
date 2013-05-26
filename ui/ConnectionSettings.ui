@@ -163,6 +163,11 @@ p, li { white-space: pre-wrap; }
       <string>ASCII Non-Print</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>Image</string>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="labelMode">
     <property name="geometry">

@@ -74,6 +74,7 @@ void ProtocolInterpreter::setPassword(string password) {
  */
 void ProtocolInterpreter::setType(string type) {
     this->type = type;
+    udtp->setType(type);
 }
 
 /**

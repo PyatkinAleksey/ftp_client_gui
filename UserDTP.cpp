@@ -6,6 +6,7 @@
  */
 
 #include <winsock2.h>
+#include <ios>
 #include "UserDTP.h"
 
 /**
@@ -50,6 +51,18 @@ void UserDTP::setPath(string path) {
  */
 void UserDTP::setPort(int port) {
     this->port = port;
+}
+
+/**
+ * Установка типа передаваемых данных.
+ * 
+ * @param type Тип.
+ */
+void UserDTP::setType(string type) {
+    this->type = type;
+    if (type != "A N" && type != "I") {
+        this->type = "A N";
+    }
 }
 
 /**
@@ -180,16 +193,30 @@ list<string> UserDTP::fileList() {
 void UserDTP::retrieve() {
     ofstream stream;
     string fullPath = localPath;
+    ios_base::openmode mode;
 
-    stream.open(fullPath.c_str(), ofstream::out);
+    if (type == "A N") {
+        mode = ofstream::out;
+    } else if (type == "I") {
+        mode = ofstream::out | ofstream::binary;
+    }
+    stream.open(fullPath.c_str(), mode);
     do {
         memset(buffer, 0, MAX_BUF_LEN);
-        result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
+        if (type == "A N") {
+            result = recv(dataSocket, buffer, MAX_BUF_LEN, 0);
+        } else if (type == "I") {
+            result = recv(dataSocket, &buffer[0], 1, 0);
+        }
         if (result > 0) {
             if (strstr(buffer, "226 ")) {
                 service->printMessage(0, buffer);
             }
-            stream << buffer;
+            if (type == "A N") {
+                stream << buffer;
+            } else if (type == "I") {
+                stream << buffer[0];
+            }
         }
     } while(result > 0);
     stream.close();
@@ -201,17 +228,36 @@ void UserDTP::retrieve() {
  */
 void UserDTP::store() {
     ifstream stream;
+    ios_base::openmode mode;
     string buffer;
     
-    stream.open(localPath.c_str(), ifstream::in);
-    while (getline(stream, buffer)) {
-        buffer.append("\n");
-        result = send(dataSocket, buffer.c_str(), buffer.length(), 0);
+    if (type == "A N") {
+        mode = ifstream::in;
+    } else if (type == "I") {
+        mode = ifstream::in | ofstream::binary;
+    }
+    stream.open(localPath.c_str(), mode);
+    stream.seekg(0, stream.beg);
+    do {
+        if (type == "A N") {
+            memset(this->buffer, 0, MAX_BUF_LEN);
+            stream.read(this->buffer, MAX_BUF_LEN);
+            result = send(dataSocket, this->buffer, stream.gcount(), 0);
+            if (stream.eof()) {
+                break;
+            }
+        } else if (type == "I") {
+            buffer[0] = stream.get();
+            if (stream.eof()) {
+                break;
+            }
+            result = send(dataSocket, &buffer[0], 1, 0);
+        }
         if (result <= 0) {
             service->printMessage(2, "Transfer error!");
             return;
         }
-    }
+    } while (true);
     stream.close();
     closeConnection();
     service->printMessage(1, "Transfer completed!");
