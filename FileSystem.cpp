@@ -108,13 +108,3 @@ int FileSystem::deleteFile(string name) {
 int FileSystem::deleteDirectory(string name) {
     return deleteFile(name);
 }
-
-/**
- * Переименовать файл или директорию.
- * 
- * @param name 
- * @return 
- */
-int FileSystem::rename(string name) {
-    
-}

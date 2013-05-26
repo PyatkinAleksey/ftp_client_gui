@@ -23,6 +23,5 @@ class FileSystem {
         int makeDirectory(string name);         // Создать директорию
         int deleteFile(string name);            // Удалить файл
         int deleteDirectory(string name);       // Удалить директорию
-        int rename(string name);                // переименовать файл или директорию
     
 };

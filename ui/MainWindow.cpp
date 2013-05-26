@@ -37,6 +37,7 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
         i++;
     }
     openPath(QString::fromStdString(globalEntity));
+    
     connect(widget.actionConnectionSettings, SIGNAL(triggered()), csWindow, SLOT(show()));
     connect(widget.globalEntities, SIGNAL(currentIndexChanged(QString)), this, SLOT(openPath(QString)));
     connect(widget.localFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openPath(QListWidgetItem*)));
@@ -271,13 +272,13 @@ void MainWindow::deleteFiles() {
         for (int i = 0; i < files.size(); i++) {
             path = files.at(i)->text().toStdString();
             if (fs.isFile(localPath + "/" + path)) {
-                if (fs.deleteFile(localPath + "/" + path)) {
+                if (QFile::remove(QString::fromStdString(localPath + "/" + path))) {//fs.deleteFile(localPath + "/" + path)
                     service->printMessage(1, "File '" + localPath + "/" + path + "' successfully removed.");
                 } else {
                     service->printMessage(1, "File '" + localPath + "/" + path + "' was not removed.");
                 }
             } else {
-                if (fs.deleteDirectory(localPath + "/" + files.at(i)->text().toStdString())) {
+                if (deleteLocalFolder(localPath + "/" + files.at(i)->text().toStdString())) {
                     service->printMessage(1, "Folder '" + localPath + "/" + path + "' successfully removed.");
                 } else {
                     service->printMessage(1, "Folder '" + localPath + "/" + path + "' was not removed.");
@@ -515,7 +516,27 @@ void MainWindow::retrieveFolder(string path) {
 }
 
 /**
- * Рекурсивное удаление содержимого директорий.
+ * Рекурсивно удалить содержимое локальной директории.
+ * 
+ * @param path Путь до директории.
+ * 
+ * @return 0 - не удалена, другое - удалена.
+ */
+int MainWindow::deleteLocalFolder(string path) {
+    QDir dir;
+    QStringList files;
+    
+    dir = QDir(QString::fromStdString(path));
+    files = dir.entryList(QStringList("*"), QDir::Files | QDir::Dirs);
+    for (int i = 0; i < files.size(); i++) {
+        if (files.at(i)) {
+            
+        }
+    }
+}
+
+/**
+ * Рекурсивное удаление содержимого директорий на сервере.
  * 
  * @param path Имя директории.
  * 

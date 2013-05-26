@@ -61,7 +61,8 @@ class MainWindow : public QMainWindow {
         void getRemoteFileList();               // Вывести список файлов и каталогов сервера в текущей директории
         void storeFolder(string path);          // Отправить каталог на сервер
         void retrieveFolder(string path);       // Скопировать каталог с сервера
-        int deleteRemoteFolder(string path);    // Удалить файл или директорию
+        int deleteLocalFolder(string path);     // Рекурсивно удалить директорию
+        int deleteRemoteFolder(string path);    // Рекурсивно удалить директорию на сервере
         
 };
 
