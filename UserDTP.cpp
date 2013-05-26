@@ -229,7 +229,6 @@ void UserDTP::retrieve() {
 void UserDTP::store() {
     ifstream stream;
     ios_base::openmode mode;
-    string buffer;
     
     if (type == "A N") {
         mode = ifstream::in;
@@ -239,19 +238,25 @@ void UserDTP::store() {
     stream.open(localPath.c_str(), mode);
     stream.seekg(0, stream.beg);
     do {
+        memset(buffer, 0, MAX_BUF_LEN);
         if (type == "A N") {
-            memset(this->buffer, 0, MAX_BUF_LEN);
-            stream.read(this->buffer, MAX_BUF_LEN);
-            result = send(dataSocket, this->buffer, stream.gcount(), 0);
+            stream.read(buffer, MAX_BUF_LEN);
+            result = send(dataSocket, buffer, stream.gcount(), 0);
             if (stream.eof()) {
                 break;
             }
         } else if (type == "I") {
-            buffer[0] = stream.get();
-            if (stream.eof()) {
-                break;
+            int i = 0;
+            while (!stream.eof() && (i < MAX_BUF_LEN)) {
+                stream.read(&buffer[i], sizeof(char));
+                i++;
             }
-            result = send(dataSocket, &buffer[0], 1, 0);
+            if (stream.eof()) {
+                result = send(dataSocket, buffer, i-1, 0);
+                break;
+            } else {
+                result = send(dataSocket, buffer, i, 0);
+            }
         }
         if (result <= 0) {
             service->printMessage(2, "Transfer error!");
