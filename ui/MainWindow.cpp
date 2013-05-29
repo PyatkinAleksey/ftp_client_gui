@@ -332,7 +332,7 @@ void MainWindow::makeDir() {
  */
 void MainWindow::cdUpRemote() {
     int pos = remotePath.lastIndexOf("/");
-    remotePath.remove(pos+1, remotePath.length() - pos);
+    remotePath.remove(pos, remotePath.length() - pos);
 }
 
 /**
@@ -591,9 +591,14 @@ int MainWindow::deleteRemoteFolder(string path) {
     }
     pi->setPath("..");
     pi->sendCommand("CWD");
+    cdUpRemote();
+    pi->setPath(path);
+    if (!pi->sendCommand("RMD")) {
+        success = 0;
+    }
+    
     if (success) {
-        pi->setPath(path);
-        return (pi->sendCommand("RMD"));
+        return 1;
     } else {
         return 0;
     }
