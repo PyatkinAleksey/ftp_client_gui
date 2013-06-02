@@ -2,6 +2,7 @@
   <qresource prefix="Menu&amp;Toolbar">
     <file>images/about_program.ico</file>
     <file>images/connect.ico</file>
+    <file>images/disconnect.ico</file>
     <file>images/copy.ico</file>
     <file>images/delete.ico</file>
     <file>images/exit.ico</file>

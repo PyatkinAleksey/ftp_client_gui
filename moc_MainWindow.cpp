@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Mon 27. May 01:17:24 2013
+** Created: Sun 2. Jun 15:18:33 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,11 +36,12 @@ static const uint qt_meta_data_MainWindow[] = {
       62,   12,   11,   11, 0x08,
       95,   11,   11,   11, 0x08,
      108,   11,   11,   11, 0x08,
-     115,   11,   11,   11, 0x08,
-     124,   12,   11,   11, 0x08,
-     155,   12,   11,   11, 0x08,
-     187,   11,   11,   11, 0x08,
-     201,   11,   11,   11, 0x08,
+     124,   11,   11,   11, 0x08,
+     131,   11,   11,   11, 0x08,
+     140,   12,   11,   11, 0x08,
+     171,   12,   11,   11, 0x08,
+     203,   11,   11,   11, 0x08,
+     217,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -49,8 +50,8 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0item\0openPath(QString)\0"
     "openPath(QListWidgetItem*)\0"
     "openRemotePath(QListWidgetItem*)\0"
-    "ftpConnect()\0copy()\0rename()\0"
-    "renamedLocal(QListWidgetItem*)\0"
+    "ftpConnect()\0ftpDisconnect()\0copy()\0"
+    "rename()\0renamedLocal(QListWidgetItem*)\0"
     "renamedRemote(QListWidgetItem*)\0"
     "deleteFiles()\0makeDir()\0"
 };
@@ -88,15 +89,16 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: openPath((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 2: openRemotePath((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
         case 3: ftpConnect(); break;
-        case 4: copy(); break;
-        case 5: rename(); break;
-        case 6: renamedLocal((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 7: renamedRemote((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 8: deleteFiles(); break;
-        case 9: makeDir(); break;
+        case 4: ftpDisconnect(); break;
+        case 5: copy(); break;
+        case 6: rename(); break;
+        case 7: renamedLocal((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 8: renamedRemote((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
+        case 9: deleteFiles(); break;
+        case 10: makeDir(); break;
         default: ;
         }
-        _id -= 10;
+        _id -= 11;
     }
     return _id;
 }

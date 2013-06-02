@@ -46,6 +46,7 @@ MainWindow::MainWindow(ConnectionSettings *csw) {
     connect(widget.remoteFiles, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(openRemotePath(QListWidgetItem*)));
     connect(widget.remoteFiles, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(renamedRemote(QListWidgetItem*)));
     connect(widget.actionConnect, SIGNAL(triggered()), this, SLOT(ftpConnect()));
+    connect(widget.actionDisconnect, SIGNAL(triggered()), this, SLOT(ftpDisconnect()));
     connect(widget.actionCopy, SIGNAL(triggered()), this, SLOT(copy()));
     connect(widget.actionRename, SIGNAL(triggered()), this, SLOT(rename()));
     connect(widget.actionDelete, SIGNAL(triggered()), this, SLOT(deleteFiles()));
@@ -131,6 +132,18 @@ void MainWindow::ftpConnect() {
     pi->setType(options.getParameter("modes", "type", "A N"));
     pi->sendCommand("TYPE");
     getRemoteFileList();
+    widget.actionDisconnect->setEnabled(true); // Активируем кнопку отключения
+    widget.actionConnect->setDisabled(true); // Деактивируем кнопку подключения
+}
+
+/**
+ * Отключение от FTP-сервера.
+ */
+void MainWindow::ftpDisconnect() {
+    pi->sendCommand("QUIT");
+    widget.remoteFiles->clear();
+    widget.actionDisconnect->setDisabled(true); // Деактивируем кнопку отключения
+    widget.actionConnect->setEnabled(true); // Активируем кнопку подключения
 }
 
 /**
@@ -399,7 +412,6 @@ void MainWindow::getRemoteFileList() {
                 }
                 fullIter++;
             }
-            widget.actionConnect->setDisabled(true); // Деактивируем кнопку
         }
     } else {
         widget.remoteFiles->addItem("Directory is empty.");

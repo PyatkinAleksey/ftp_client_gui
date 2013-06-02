@@ -13,6 +13,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Файлы заголовков"
                    projectFiles="true">
+      <itemPath>FileInfo.h</itemPath>
       <itemPath>Options.h</itemPath>
       <itemPath>ProtocolInterpreter.h</itemPath>
       <itemPath>Service.h</itemPath>
@@ -76,6 +77,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="FileInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Options.cpp" ex="false" tool="1" flavor2="0">
@@ -156,6 +159,8 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="FileInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Options.cpp" ex="false" tool="1" flavor2="0">
