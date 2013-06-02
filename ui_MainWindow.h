@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MainWindow.ui'
 **
-** Created: Tue 21. May 10:32:25 2013
+** Created: Sun 2. Jun 15:18:24 2013
 **      by: Qt User Interface Compiler version 4.6.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -41,9 +41,10 @@ public:
     QAction *actionRename;
     QAction *actionDelete;
     QAction *actionMakeDirectory;
+    QAction *actionDisconnect;
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
-    QComboBox *globalEntities;
+    QComboBox *drives;
     QSplitter *verticalSplitter;
     QSplitter *horizontalSplitter;
     QListWidget *localFiles;
@@ -112,15 +113,21 @@ public:
         QIcon icon9;
         icon9.addFile(QString::fromUtf8(":/Menu&Toolbar/images/make_directory.ico"), QSize(), QIcon::Normal, QIcon::Off);
         actionMakeDirectory->setIcon(icon9);
+        actionDisconnect = new QAction(MainWindow);
+        actionDisconnect->setObjectName(QString::fromUtf8("actionDisconnect"));
+        actionDisconnect->setEnabled(false);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/Menu&Toolbar/images/disconnect.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        actionDisconnect->setIcon(icon10);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        globalEntities = new QComboBox(centralwidget);
-        globalEntities->setObjectName(QString::fromUtf8("globalEntities"));
-        globalEntities->setMinimumSize(QSize(764, 0));
+        drives = new QComboBox(centralwidget);
+        drives->setObjectName(QString::fromUtf8("drives"));
+        drives->setMinimumSize(QSize(764, 0));
 
-        gridLayout_2->addWidget(globalEntities, 0, 0, 1, 1);
+        gridLayout_2->addWidget(drives, 0, 0, 1, 1);
 
         verticalSplitter = new QSplitter(centralwidget);
         verticalSplitter->setObjectName(QString::fromUtf8("verticalSplitter"));
@@ -177,6 +184,7 @@ public:
         mainMenu->addAction(menuOptions->menuAction());
         mainMenu->addAction(menuHelp->menuAction());
         menuFile->addAction(actionConnect);
+        menuFile->addAction(actionDisconnect);
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
         menuOptions->addAction(actionConnectionSettings);
@@ -189,12 +197,15 @@ public:
         menuActions->addSeparator();
         menuActions->addAction(actionMakeDirectory);
         toolBar->addAction(actionConnect);
+        toolBar->addAction(actionDisconnect);
         toolBar->addSeparator();
         toolBar->addAction(actionCopy);
         toolBar->addAction(actionRename);
         toolBar->addAction(actionDelete);
         toolBar->addSeparator();
         toolBar->addAction(actionMakeDirectory);
+        toolBar->addSeparator();
+        toolBar->addAction(actionConnectionSettings);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
@@ -230,6 +241,7 @@ public:
         actionMakeDirectory->setToolTip(QApplication::translate("MainWindow", "Make directory (F7)", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         actionMakeDirectory->setShortcut(QApplication::translate("MainWindow", "F7", 0, QApplication::UnicodeUTF8));
+        actionDisconnect->setText(QApplication::translate("MainWindow", "Disconnect", 0, QApplication::UnicodeUTF8));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuOptions->setTitle(QApplication::translate("MainWindow", "Options", 0, QApplication::UnicodeUTF8));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0, QApplication::UnicodeUTF8));

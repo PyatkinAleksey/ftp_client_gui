@@ -12,9 +12,9 @@
 #include <QtGui/QInputDialog>
 #include <QtGui/QMessageBox>
 #include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include "../Service.h"
 #include "../Options.h"
-#include "../FileSystem.h"
 #include "../ProtocolInterpreter.h"
 #include "ConnectionSettings.h"
 #include "AboutProgram.h"
@@ -32,10 +32,11 @@ class MainWindow : public QMainWindow {
         virtual ~MainWindow();                  // Сохранение параметров и освобождение памяти
         
     private slots:
-        void openPath(QString item);                // Вывод списка файлов и каталогов при выборе глобальной сущности
+        void openPath(QString item);                // Вывод списка файлов и каталогов при выборе диска
         void openPath(QListWidgetItem *item);       // Вывод списка файлов и директорий при навигации по каталогам
         void openRemotePath(QListWidgetItem *item); // Вывод списка файлов и директорий при навигации по каталогам сервера
         void ftpConnect();                          // Осуществление соединения и получения списка файлов и директорий корневого каталога
+        void ftpDisconnect();                       // Отключение от сервера
         void copy();                                // Копирование файлов и директорий
         void rename();                              // Переименование файла или директории
         void renamedLocal(QListWidgetItem *item);   // Переименован локальный файл или директория
@@ -47,21 +48,23 @@ class MainWindow : public QMainWindow {
         Ui::MainWindow widget;          // Виджет главного окна
         Service *service;               // Указатель на объект сервисного класса
         Options options;                // Объект класса для получения свойств из конфига
-        FileSystem fs;                  // Объект класса для работы с файловой системой
         ProtocolInterpreter *pi;        // Указатель на объект интерпретатора протокола
         ConnectionSettings *csWindow;   // Указатель на окно свойств соединения
         AboutProgram *apWindow;         // Указатель на окно "О программе"
-        string globalEntity;            // Глобальная сущность
-        string localPath;               // Локальный путь
-        string remotePath;              // Путь на сервере
+        QString drive;                  // Глобальная сущность
+        QDir currentDir;                // Текущая директория
+        QString remotePath;             // Путь на сервере
+        int passive;                    // Пассивный режим
         int nestingCounter;             // Счетчик вложенности каталогов для определения корневой директории сервера
-        string oldName;                 // Старое имя файла для операции переименования
+        QString oldName;                // Старое имя файла для операции переименования
 
+        void cdUpRemote();                      // Подняться по дереву каталогов сервера
         void getLocalFileList();                // Вывести список локальных файлов и каталогов в текущей директории
         void getRemoteFileList();               // Вывести список файлов и каталогов сервера в текущей директории
-        void storeFolder(string path);          // Отправить каталог на сервер
+        void storeFolder();                     // Отправить каталог на сервер
         void retrieveFolder(string path);       // Скопировать каталог с сервера
-        int deleteRemoteFolder(string path);    // Удалить файл или директорию
+        int deleteLocalFolder();                // Рекурсивно удалить директорию
+        int deleteRemoteFolder(string path);    // Рекурсивно удалить директорию на сервере
         
 };
 

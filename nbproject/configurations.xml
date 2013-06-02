@@ -4,7 +4,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Исходные файлы"
                    projectFiles="true">
-      <itemPath>FileSystem.cpp</itemPath>
       <itemPath>Options.cpp</itemPath>
       <itemPath>ProtocolInterpreter.cpp</itemPath>
       <itemPath>Service.cpp</itemPath>
@@ -14,7 +13,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Файлы заголовков"
                    projectFiles="true">
-      <itemPath>FileSystem.h</itemPath>
+      <itemPath>FileInfo.h</itemPath>
       <itemPath>Options.h</itemPath>
       <itemPath>ProtocolInterpreter.h</itemPath>
       <itemPath>Service.h</itemPath>
@@ -78,9 +77,7 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="FileSystem.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FileSystem.h" ex="false" tool="3" flavor2="0">
+      <item path="FileInfo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
       </item>
@@ -162,9 +159,7 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="FileSystem.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="FileSystem.h" ex="false" tool="3" flavor2="0">
+      <item path="FileInfo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Icons.qrc" ex="false" tool="3" flavor2="0">
       </item>

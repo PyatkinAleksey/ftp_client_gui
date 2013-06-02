@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'AboutProgram.h'
 **
-** Created: Sat 25. May 20:40:08 2013
+** Created: Mon 27. May 01:17:22 2013
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.0)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -1,5 +1,4 @@
 INPUT(
-./build/Release/MinGW-Windows/FileSystem.o
 ./build/Release/MinGW-Windows/Options.o
 ./build/Release/MinGW-Windows/ProtocolInterpreter.o
 ./build/Release/MinGW-Windows/Service.o
